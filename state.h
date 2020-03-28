@@ -1,0 +1,8 @@
+#ifndef STATE_H
+#define STATE_H
+
+enum state {
+    STOP_STATE, FORWARD_STATE, BACKWARD_STATE, SPIN_RIGHT_STATE, SPIN_LEFT_STATE
+};
+
+#endif
