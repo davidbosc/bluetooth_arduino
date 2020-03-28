@@ -15,37 +15,41 @@
 Servo rightServo;
 Servo leftServo;
 //CONSTANTS
-#define LEFT_OFFSET                 5
 #define RIGHT_OFFSET                4
+#define LEFT_OFFSET                 5
+
 
 /***
  * Initialize Servos
  */
-ServoWheels::ServoWheels() {
+ServoWheels::ServoWheels() {}
+
+void ServoWheels::init() {
   rightServo.attach(RIGHT_SERVO_PIN);
   leftServo.attach(LEFT_SERVO_PIN);
+  // waiting();
 }
 
 /***
  * Set the speed and direction of the
  * servos based on its current state
  */ 
-void ServoWheels::setServoState(state state) {
-  switch(state) {
-    case FORWARD_STATE:
+void ServoWheels::setServoState(state s) {
+  switch(s) {
+    case state::FORWARD_STATE:
       forward();
       break;
-    case BACKWARD_STATE:
+    case state::BACKWARD_STATE:
       backward();
       break;
-    case SPIN_LEFT_STATE:
+    case state::SPIN_LEFT_STATE:
       spinLeft();
       break;
-    case SPIN_RIGHT_STATE:
+    case state::SPIN_RIGHT_STATE:
       spinRight();
       break;
-    case STOP_STATE:
-      stop();
+    default:
+      waiting();
       break;
   }
 }
@@ -59,7 +63,7 @@ void ServoWheels::setServoSpeed(int right, int left) {
 }
 
 //TODO: Document all these functions, and clean up the constants
-void ServoWheels::stop() {
+void ServoWheels::waiting() {
   setServoSpeed(90, 90);
 }
 

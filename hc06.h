@@ -5,6 +5,7 @@
 class HC06 {
   public:
     HC06();
+    void init();
     char acceptBlueToothInput();
     state commandInterpreter(char command);
 };

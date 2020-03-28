@@ -7,12 +7,14 @@ HC06 bluetoothReceiver;
 ServoWheels servos;
 
 void setup() {
+  servos.init();
   Serial.begin(9600);
+  bluetoothReceiver.init();
 }
 
 void loop() {
   char input = bluetoothReceiver.acceptBlueToothInput();
-  currentState = static_cast<state>(bluetoothReceiver.commandInterpreter(input));
+  state currentState = static_cast<state>(bluetoothReceiver.commandInterpreter(input));
   servos.setServoState(currentState);
   delay(500);
 }

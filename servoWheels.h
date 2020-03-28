@@ -1,14 +1,16 @@
 #ifndef SERVO_H_INCLUDED
 #define SERVO_H_INCLUDED
 #include "state.h"
+#include <Servo.h>
 
 class ServoWheels {
   public:
     ServoWheels();
-    void setServoState(state state);
-    void setServoSpeed(int right, int left);
+    void init();
+    void setServoState(state s);
   private:
-    void stop();
+    void setServoSpeed(int right, int left);
+    void waiting();
     void forward();
     void backward();
     void spinRight();

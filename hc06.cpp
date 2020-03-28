@@ -4,7 +4,7 @@
 #include <SoftwareSerial.h>
 
 /***
- * Pin Configuration
+ *  Pin configuration 
  */
 #define RX_PIN             4
 #define TX_PIN             2
@@ -13,12 +13,16 @@
  * Global Variables
  */
 SoftwareSerial blueToothReceiver(RX_PIN, TX_PIN);
-String input = "";
 
 /***
  * Initialize HC-06 Module
  */
-HC06::HC06() {
+HC06::HC06() {}
+
+/***
+ * Initialize HC-06 Module
+ */
+void HC06::init() {
   blueToothReceiver.begin(9600);
 }
 
@@ -30,6 +34,7 @@ HC06::HC06() {
  * console window to test.
  */
 char HC06::acceptBlueToothInput() {
+  String input = "";
   if(blueToothReceiver.available()) {
     while(blueToothReceiver.available()) {
       input += (char) blueToothReceiver.read();
@@ -42,23 +47,16 @@ char HC06::acceptBlueToothInput() {
  * Convert a character to a state
  */
 state HC06::commandInterpreter(char command) {
-  state nextState;
   switch(command) {
     case 'f':
-      nextState = FORWARD_STATE;
-      break;
+      return state::FORWARD_STATE;
     case 'b':
-      nextState = BACKWARD_STATE;
-      break;
+      return state::BACKWARD_STATE;
     case 'l':
-      nextState = SPIN_LEFT_STATE;
-      break;
+      return state::SPIN_LEFT_STATE;
     case 'r':
-      nextState = SPIN_RIGHT_STATE;
-      break;
+      return state::SPIN_RIGHT_STATE;
     default:
-      nextState = STOP_STATE;
-      break;
+      return state::STOP_STATE;
   }
-  return nextState;
 }
